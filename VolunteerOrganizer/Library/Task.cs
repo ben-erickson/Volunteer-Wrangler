@@ -1,11 +1,14 @@
-﻿namespace VolunteerOrganizer.Library
+﻿using Microsoft.Data.SqlClient;
+using System.Data;
+
+namespace VolunteerOrganizer.Library
 {
     public class Task
     {
         #region Properties
 
         public string TaskName { get; set; }
-        public string TaskDescription { get; set; }
+        public string? TaskDescription { get; set; }
         public List<DateTime> DatesOccuring { get; set; }
         public List<Volunteer> AssignedVolunteers { get; set; }
         public Guid TaskGUID { get; set; }
@@ -53,14 +56,19 @@
         /// <param name="taskGuid"></param>
         public Task(Guid taskGuid)
         {
-            // This constructor will eventually get the Task information from the SQL database once that's set up
-            // This is just here as a placeholder to stop VS from yelling at me for an empty constructor
-            this.TaskName = string.Empty;
-            this.TaskDescription = String.Empty;
-            this.DatesOccuring = new List<DateTime>();
+            SqlCommand command = new SqlCommand("select top 1 * from Task where TaskGUID = @TaskGUID");
+            command.Parameters.AddWithValue("@TaskGUID", taskGuid);
+
+            DataTable queryResult = SQLWorker.ExecuteQuery(command);
+
+            // Parse DataTable and assign values to object
+            this.TaskGUID = (Guid)queryResult.Rows[0][0];
+            this.EventGUID = (Guid)queryResult.Rows[0][1];
+            this.TaskName = (string)queryResult.Rows[0][2];
+            this.TaskDescription = queryResult.Rows[0][3].ToString();
+
             this.AssignedVolunteers = new List<Volunteer>();
-            this.TaskGUID = new Guid();
-            this.EventGUID = new Guid();
+            this.DatesOccuring = new List<DateTime>();
         }
 
         #endregion
