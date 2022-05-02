@@ -1,0 +1,25 @@
+﻿@page
+@model VolunteerOrganizer.Pages.LogInPageModel
+@{
+}
+
+<div id="logInMenu">
+    <h4>Please enter your login details:</h4>
+
+    @if (@Model.LogInError)
+    {
+        <p>Your email and password were incorrect. Please try again.</p>
+    }
+
+    <form method="post">
+        <label for="userEmailText">
+            Email:
+            <input type="text" name="userEmailText" />
+        </label>
+        <label for="userPasswordText">
+            Password:
+            <input type="text" name="userPasswordText" />
+        </label>
+        <input type="submit" />
+    </form>
+</div>

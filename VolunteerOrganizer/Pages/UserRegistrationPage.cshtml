@@ -1,0 +1,36 @@
+﻿@page
+@model VolunteerOrganizer.Pages.UserRegistrationPageModel
+@{
+}
+
+<div id="registrationMenu">
+    <h4>User Registration</h4>
+    <form id="registrationForm" method="post">
+        @if (@Model.EmailError)
+        {
+            <p>An error occured with your email. Please try another email.</p>
+        }
+        <label for="userEmailText">
+            Email:
+            <input type="text" name="userEmailText"/>
+        </label>
+
+        @if (@Model.PasswordError)
+        {
+            <p>Your password was invalid. Please try again.</p>
+        }
+        <label for="userPasswordText">
+            Password:
+            <input type="text" name="userPasswordText" />
+        </label>
+
+        <label for="userTypeDropdown">
+            User Type:
+            <select name="userTypeDropdown">
+                <option value="01">Organizer</option>
+                <option value="02">Volunteer</option>
+            </select>
+        </label>
+        <input type="submit" />
+    </form>
+</div>
