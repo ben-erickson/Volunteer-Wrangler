@@ -21,7 +21,9 @@ namespace VolunteerOrganizer.Pages
         {
             string userEmail = Request.Form["userEmailText"];
             string unhashedPassword = Request.Form["userPasswordText"];
-            string userType = Request.Form["userTypeDropdown"];
+            string firstName = Request.Form["userFirstNameText"];
+            string lastName = Request.Form["userLastNameText"];
+            string phoneNumber = Request.Form["userPhoneNumberText"];
          
             // Check if there is an account associated to the user's email
             SqlCommand emailCheckCommand = new SqlCommand("select top 1 * from UserData where UserEmail = @UserEmail");
@@ -35,11 +37,13 @@ namespace VolunteerOrganizer.Pages
                 string hashedPassword = HashManager.HashString(unhashedPassword);
                 Guid newUserGuid = Guid.NewGuid();
 
-                SqlCommand command = new SqlCommand("insert into UserData values (@UserGUID, @UserEmail, @HashedPassword)");
+                SqlCommand command = new SqlCommand("insert into UserData values (@UserGUID, @UserEmail, @HashedPassword, @FirstName, @LastName, @PhoneNumber)");
                 command.Parameters.AddWithValue("@UserGUID", newUserGuid);
                 command.Parameters.AddWithValue("@UserEmail", userEmail);
                 command.Parameters.AddWithValue("@HashedPassword", hashedPassword);
-                command.Parameters.AddWithValue("@UserType", userType);
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("PhoneNumber", phoneNumber);
 
                 SQLWorker.ExecuteNonQuery(command);
 

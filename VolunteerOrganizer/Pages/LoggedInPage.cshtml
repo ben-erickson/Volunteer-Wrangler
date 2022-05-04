@@ -3,7 +3,7 @@
 @{
 }
 
-<p>Currently Signed In User: @Model.LoggedInUser.UserEmail</p>
+<p>Hello there, @Model.LoggedInUser.FirstName @Model.LoggedInUser.LastName</p>
 
 @if (@Model.AssociatedEvents.Count != 0)
 {    
@@ -16,3 +16,8 @@ else
 {
     <p>You are not associated with any events yet.</p>
 }
+
+<div id="addEventMenu">
+    <a href="/EventCreator/@Model.LoggedInUser.UserGuid">Click here to create a new event.</a>
+    <a>Click here to volunteer for an existing event.</a>
+</div>

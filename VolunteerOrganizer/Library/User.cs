@@ -12,8 +12,10 @@ namespace VolunteerOrganizer.Library
 
         public Guid UserGuid { get; set; }
         public String UserEmail { get; set; }
-        public UserType UserType { get; set; }
-
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public String PhoneNumber { get; set;
+        }
         #endregion
 
         #region Constructors
@@ -25,7 +27,9 @@ namespace VolunteerOrganizer.Library
         {
             this.UserGuid = new Guid();
             this.UserEmail = String.Empty;
-            this.UserType = UserType.Volunteer;
+            this.FirstName = String.Empty;
+            this.LastName = String.Empty;
+            this.PhoneNumber = String.Empty;
         }
 
         /// <summary>
@@ -34,31 +38,27 @@ namespace VolunteerOrganizer.Library
         /// <param name="userGuid"></param>
         /// <param name="userEmail"></param>
         /// <param name="userType"></param>
-        public User(Guid userGuid, string userEmail, UserType userType)
+        public User(Guid userGuid, string userEmail, string firstName, string lastName, string phoneNumber)
         {
             this.UserGuid = userGuid;
             this.UserEmail = userEmail;
-            this.UserType = userType;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.PhoneNumber = phoneNumber;
         }
 
         public User(Guid userGuid)
         {
-            SqlCommand commnad = new SqlCommand("select top 1 UserGUID, UserEmail, UserPassword from UserData where UserGUID = @UserGUID");
+            SqlCommand commnad = new SqlCommand("select top 1 UserGUID, UserEmail, FirstName, LastName, PhoneNumber from UserData where UserGUID = @UserGUID");
             commnad.Parameters.AddWithValue("@UserGUID", userGuid);
 
             DataTable queryResult = SQLWorker.ExecuteQuery(commnad);
 
             this.UserGuid = (Guid)queryResult.Rows[0][0];
             this.UserEmail = (string)queryResult.Rows[0][1];
-
-            if ((string)queryResult.Rows[0][2] == "01")
-            {
-                this.UserType = UserType.Organizer;
-            }
-            else
-            {
-                this.UserType = UserType.Volunteer;
-            }
+            this.FirstName = queryResult.Rows[0][2].ToString() ?? string.Empty;
+            this.LastName = queryResult.Rows[0][3].ToString() ?? string.Empty;
+            this.PhoneNumber = queryResult.Rows[0][4].ToString() ?? string.Empty;
         }
 
         #endregion
