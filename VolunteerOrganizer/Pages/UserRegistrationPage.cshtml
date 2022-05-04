@@ -6,19 +6,15 @@
 <div id="registrationMenu">
     <h4>User Registration</h4>
     <form id="registrationForm" method="post">
-        @if (@Model.EmailError)
+        @if (@Model.Error)
         {
-            <p>An error occured with your email. Please try another email.</p>
+            <p>@Model.ErrorMessage</p>
         }
         <label for="userEmailText">
             Email:
             <input type="text" name="userEmailText"/>
         </label>
 
-        @if (@Model.PasswordError)
-        {
-            <p>Your password was invalid. Please try again.</p>
-        }
         <label for="userPasswordText">
             Password:
             <input type="text" name="userPasswordText" />

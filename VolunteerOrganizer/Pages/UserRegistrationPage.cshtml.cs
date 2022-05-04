@@ -1,39 +1,56 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using System.Data;
 using VolunteerOrganizer.Library;
 
 namespace VolunteerOrganizer.Pages
 {
     public class UserRegistrationPageModel : PageModel
     {
-        public bool EmailError { get; set; }
-        public bool PasswordError { get; set; }
+        public bool Error { get; set; }
+        public string ErrorMessage { get; set; }
 
         public void OnGet()
         {
-            this.EmailError = false;
-            this.PasswordError = false;
+            this.Error = false;
+            this.ErrorMessage = string.Empty;
         }
 
         public void OnPost()
         {
-            // TODO: Add a check that stops the user from registering with an email that is already used for an account
             string userEmail = Request.Form["userEmailText"];
             string unhashedPassword = Request.Form["userPasswordText"];
             string userType = Request.Form["userTypeDropdown"];
+         
+            // Check if there is an account associated to the user's email
+            SqlCommand emailCheckCommand = new SqlCommand("select top 1 * from UserData where UserEmail = @UserEmail");
+            emailCheckCommand.Parameters.AddWithValue("@UserEmail", userEmail);
 
-            string hashedPassword = HashManager.HashString(unhashedPassword);
+            DataTable emailCheckResult = SQLWorker.ExecuteQuery(emailCheckCommand);
 
-            SqlCommand command = new SqlCommand("insert into UserRegistration values (newid(), @UserEmail, @HashedPassword, @UserType, null)");
-            command.Parameters.AddWithValue("@UserEmail", userEmail);
-            command.Parameters.AddWithValue("@HashedPassword", hashedPassword);
-            command.Parameters.AddWithValue("@UserType", userType);
+            if (emailCheckResult.Rows.Count == 0)
+            {
+                // There are no entries in UserData with the given email, so insert it into the table and continue
+                string hashedPassword = HashManager.HashString(unhashedPassword);
+                Guid newUserGuid = Guid.NewGuid();
 
-            SQLWorker.ExecuteNonQuery(command);
+                SqlCommand command = new SqlCommand("insert into UserData values (@UserGUID, @UserEmail, @HashedPassword)");
+                command.Parameters.AddWithValue("@UserGUID", newUserGuid);
+                command.Parameters.AddWithValue("@UserEmail", userEmail);
+                command.Parameters.AddWithValue("@HashedPassword", hashedPassword);
+                command.Parameters.AddWithValue("@UserType", userType);
 
-            // At this point, this should now redirect the user to the landing page for either the organizer or the volunteer
-            // But as they don't exist yet, it will remain blank
+                SQLWorker.ExecuteNonQuery(command);
+
+                Response.Redirect($"/LoggedInPage/{newUserGuid}");
+            }
+            else
+            {
+                // There is already an account with this email associated, so don't add another one
+                this.Error = true;
+                this.ErrorMessage = "There is already an account associated with this email.";
+            }
         }
     }
 }

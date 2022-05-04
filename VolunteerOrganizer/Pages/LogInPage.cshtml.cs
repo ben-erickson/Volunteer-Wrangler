@@ -9,6 +9,7 @@ namespace VolunteerOrganizer.Pages
     public class LogInPageModel : PageModel
     {
         public bool LogInError { get; set; }
+
         public void OnGet()
         {
             this.LogInError = false;
@@ -17,12 +18,12 @@ namespace VolunteerOrganizer.Pages
         public void OnPost()
         {
             string userEmail = Request.Form["userEmailText"];
-            string unhashedPassword = Request.Form["userEmailPassword"];
+            string unhashedPassword = Request.Form["userPasswordText"];
 
             // Hash the given password from the request
             string userPassword = HashManager.HashString(unhashedPassword);
 
-            SqlCommand command = new SqlCommand("select UserGuid, UserType from UserData where UserEmail = @UserEmail and UserPassword = @UserPassword");
+            SqlCommand command = new SqlCommand("select UserGuid from UserData where UserEmail = @UserEmail and UserPassword = @UserPassword");
             command.Parameters.AddWithValue("@UserEmail", userEmail);
             command.Parameters.AddWithValue("@UserPassword", userPassword);
 
@@ -31,12 +32,10 @@ namespace VolunteerOrganizer.Pages
             // If there is exactly one result, that means that the user input correct data, and we can go to the landing page
             if (queryResult.Rows.Count == 1)
             {
-
+                Response.Redirect("/LoggedInPage/" + queryResult.Rows[0][0].ToString());
             }
             else
             {
-                // NOTE: this will also be run if there are two users with the same email and password. This is a minor issue,
-                // but I should disallow the same email to be used twice in the registration page.
                 this.LogInError = true;
             }
         }

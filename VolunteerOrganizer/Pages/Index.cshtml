@@ -4,18 +4,28 @@
     ViewData["Title"] = "Home page";
 }
 
-<!-- Central Text -->
-<div class="text-center">
-    <h4>Welcome to the Volunteer Organizer.</h4>
-    <h5>Click to <a>log in</a>, or <a href="/UserRegistrationPage/">register an account.</a></h5>
-</div>
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VolunteerOrganizer.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Central Text -->
+    <div class="text-center">
+        <h4 class="textColor">Welcome to the Volunteer Organizer.</h4>
+        <h5 class="textColor">Click to <a href="/LogInPage/">log in</a>, or <a href="/UserRegistrationPage/">register an account.</a></h5>
+    </div>
 
-<!-- Left Menu -->
-<div id="leftMenu">
-    <div id="publicEventView">
-        <a href="/EventView/">View Public Events</a>
+    <!-- Left Menu -->
+    <div id="leftMenu">
+        <div id="publicEventView">
+            <a href="/EventView/" class="textColor">View Public Events</a>
+        </div>
+        <div id="privateEventSearch">
+            <a href="/EventSearch/" class="textColor">Search Private Events</a>
+        </div>
     </div>
-    <div id="privateEventSearch">
-        <a href="/EventSearch/">Search Private Events</a>
-    </div>
-</div>
+
+    <a href="/LoggedInPage/420F3EBA-1BF3-42BD-8765-1265BFE2BB09">Home Page</a>
+    <a href="/TestPage/964F04DE-7071-4AC1-9AFE-667ABE1B184D">Test Page</a>
+</body>

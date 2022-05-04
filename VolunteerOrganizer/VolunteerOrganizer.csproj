@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\LogInPage.cshtml" />
+    <None Remove="Pages\Info.cshtml~RFe39ed40.TMP" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,15 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\LogInPage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\LogInPage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\LogInPage.cshtml" />
+    <Folder Include="Pages\CSS\" />
   </ItemGroup>
 
 </Project>

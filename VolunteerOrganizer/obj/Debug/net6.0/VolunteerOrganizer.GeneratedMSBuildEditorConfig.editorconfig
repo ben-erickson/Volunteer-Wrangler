@@ -31,8 +31,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/LoggedInPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nZ2VkSW5QYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/LogInPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nSW5QYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/Shared/_ValidationScriptsPartial.cshtml]

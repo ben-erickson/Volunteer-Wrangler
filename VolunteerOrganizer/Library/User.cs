@@ -43,7 +43,7 @@ namespace VolunteerOrganizer.Library
 
         public User(Guid userGuid)
         {
-            SqlCommand commnad = new SqlCommand("select top 1 UserGUID, UserEmail, UserType from UserData where UserGUID = @UserGUID");
+            SqlCommand commnad = new SqlCommand("select top 1 UserGUID, UserEmail, UserPassword from UserData where UserGUID = @UserGUID");
             commnad.Parameters.AddWithValue("@UserGUID", userGuid);
 
             DataTable queryResult = SQLWorker.ExecuteQuery(commnad);

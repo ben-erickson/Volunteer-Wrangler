@@ -10,7 +10,7 @@ namespace VolunteerOrganizer.Library
         public string TaskName { get; set; }
         public string? TaskDescription { get; set; }
         public List<DateTime> DatesOccuring { get; set; }
-        public List<Volunteer> AssignedVolunteers { get; set; }
+        public List<Individual> AssignedVolunteers { get; set; }
         public Guid TaskGUID { get; set; }
         public Guid EventGUID { get; set; }
 
@@ -26,7 +26,7 @@ namespace VolunteerOrganizer.Library
             this.TaskName = string.Empty;
             this.TaskDescription = String.Empty;
             this.DatesOccuring = new List<DateTime>();
-            this.AssignedVolunteers = new List<Volunteer>();
+            this.AssignedVolunteers = new List<Individual>();
             this.TaskGUID = new Guid();
             this.EventGUID = new Guid();
         }
@@ -40,7 +40,7 @@ namespace VolunteerOrganizer.Library
         /// <param name="volunteers"></param>
         /// <param name="taskGuid"></param>
         /// <param name="eventGuid"></param>
-        public Task(string name, string description, List<DateTime> datesOccuring, List<Volunteer> volunteers, Guid taskGuid, Guid eventGuid)
+        public Task(string name, string description, List<DateTime> datesOccuring, List<Individual> volunteers, Guid taskGuid, Guid eventGuid)
         {
             this.TaskName = name;
             this.TaskDescription = description;
@@ -67,7 +67,7 @@ namespace VolunteerOrganizer.Library
             this.TaskName = (string)queryResult.Rows[0][2];
             this.TaskDescription = queryResult.Rows[0][3].ToString();
 
-            this.AssignedVolunteers = new List<Volunteer>();
+            this.AssignedVolunteers = new List<Individual>();
             this.DatesOccuring = new List<DateTime>();
         }
 
