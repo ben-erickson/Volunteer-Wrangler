@@ -9,6 +9,11 @@ namespace VolunteerOrganizer.Pages
     {
         public User LoggedInUser { get; set; }
 
+        public EventCreatorModel()
+        {
+            this.LoggedInUser = new User();
+        }
+
         public void OnGet(string userId)
         {
             this.LoggedInUser = new User(Guid.Parse(userId));
@@ -46,8 +51,17 @@ namespace VolunteerOrganizer.Pages
 
             SQLWorker.ExecuteNonQuery(individualInsertion);
 
-            // Now that the event has been created, send the user to the event modification page
-            // which doesn't exist yet, but once it does, it will happen here
+            // Insert into EventSearch
+            Guid searchKey = Guid.NewGuid();
+
+            SqlCommand searchCommand = new SqlCommand("insert into EventSearch (EventSearchGUID, EventSearchKey, EventGUID) values (newid(), @EventSearchKey, @EventGUID)");
+            searchCommand.Parameters.AddWithValue("@EventSearchKey", searchKey);
+            searchCommand.Parameters.AddWithValue("@EventGUID", eventGuid);
+
+            SQLWorker.ExecuteNonQuery(searchCommand);
+
+            // Send the user to the Event Editor for their new event
+            Response.Redirect($"/EventEditor/{eventGuid}/{this.LoggedInUser.UserGuid}");
         }
     }
 }

@@ -1,0 +1,30 @@
+﻿@page "{projectId}/{instanceId?}"
+@model VolunteerOrganizer.Pages.InstanceEditorModel
+@{
+}
+
+<h3>Project Name: @Model.WorkingProject.ProjectName</h3>
+
+@if (!@Model.ModifyingInstance) 
+{
+    <div id="instanceDataMenu">
+        <p>Instance Time: @Model.WorkingInstance.InstanceTime</p>
+    </div>
+
+    <form method="post">
+        <input type="submit" value="Edit Instance" asp-page-handler="ModifyInstance">
+    </form>
+}
+else 
+{
+    <div id="instanceEditMenu">
+        <form method="post">
+            <label for="instanceTime">
+                Instance Time: 
+                <input type="time" name="instanceTime" value="@Model.WorkingInstance.InstanceTime">
+            </label>
+
+            <input type="submit" value="Save Instance" asp-page-handler="SaveInstance">
+        </form>
+    </div>
+}

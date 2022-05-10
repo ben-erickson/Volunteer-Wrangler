@@ -23,6 +23,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRDcmVhdG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/EventEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRFZGl0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/EventSearch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRTZWFyY2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -35,12 +39,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/InstanceEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdGFuY2VFZGl0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/LoggedInPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nZ2VkSW5QYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/LogInPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nSW5QYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/ProjectEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvamVjdEVkaXRvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/Shared/_ValidationScriptsPartial.cshtml]
@@ -53,6 +65,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/UserRegistrationPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclJlZ2lzdHJhdGlvblBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/VolunteerView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVm9sdW50ZWVyVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Claim Academy Assignments/Capstone/VolunteerOrganizer/VolunteerOrganizer/Pages/_ViewImports.cshtml]

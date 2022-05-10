@@ -1,0 +1,20 @@
+﻿@page "{eventId}/{individualId}"
+@model VolunteerOrganizer.Pages.VolunteerViewModel
+@{
+}
+
+<h3>Project Assignments for @Model.VolunteerUser.FirstName @Model.VolunteerUser.LastName</h3>
+
+@if (@Model.VolunteerProjects.Count == 0) 
+{
+    <p>You have not been assigned any projects. Hang tight until your event's organizer gives you some projects.</p>
+}
+else 
+{
+    @for (int i = 0; i < @Model.VolunteerProjects.Count; i++)
+    {
+        <p>@Model.VolunteerProjects[i].Item1</p>
+        <p>@Model.VolunteerProjects[i].Item2</p>
+        <p>@Model.VolunteerProjects[i].Item3</p>
+    }
+}

@@ -22,8 +22,10 @@ namespace VolunteerOrganizer.Library
         /// </summary>
         public Individual()
         {
-            this.IndividualGUID = new Guid();
-            this.EventGUID = new Guid();
+            this.IndividualGUID = Guid.NewGuid();
+            this.EventGUID = Guid.NewGuid();
+            this.UserGUID = Guid.NewGuid();
+            this.UserType = UserType.Volunteer;
         }
 
         /// <summary>
@@ -33,10 +35,13 @@ namespace VolunteerOrganizer.Library
         /// <param name="email"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="guid"></param>
-        public Individual(string name, string email, string phoneNumber, Guid volunteerGuid, Guid eventGuid)
+        public Individual(Guid volunteerGuid, Guid eventGuid, Guid userGuid, UserType userType)
         {
             this.IndividualGUID = volunteerGuid;
             this.EventGUID = eventGuid;
+            this.UserGUID = userGuid;
+            this.UserType = userType;
+            
         }
 
         /// <summary>
@@ -66,5 +71,20 @@ namespace VolunteerOrganizer.Library
         }
 
         #endregion
+
+        public string GetName()
+        {
+            string individualName = "";
+
+            // Query the database to get the individual's name
+            SqlCommand nameQuery = new SqlCommand("select FirstName + ' ' + LastName as UserName from UserData where UserGUID = @UserGUID");
+            nameQuery.Parameters.AddWithValue("@UserGUID", this.UserGUID);
+
+            DataTable nameResult = SQLWorker.ExecuteQuery(nameQuery);
+
+            individualName = (string)nameResult.Rows[0][0];
+
+            return individualName;
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace VolunteerOrganizer.Library
         /// </summary>
         public User()
         {
-            this.UserGuid = new Guid();
+            this.UserGuid = Guid.NewGuid();
             this.UserEmail = String.Empty;
             this.FirstName = String.Empty;
             this.LastName = String.Empty;

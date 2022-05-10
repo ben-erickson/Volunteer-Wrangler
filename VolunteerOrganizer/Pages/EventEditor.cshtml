@@ -1,0 +1,89 @@
+﻿@page "{eventId}/{userId}"
+@model VolunteerOrganizer.Pages.EventEditorModel
+@{
+}
+
+<!-- Event Info -->
+@if (!@Model.Editing)
+{    
+    <div id="eventInfoDisplay">
+        <p id="eventName">Event Name: @Model.CurrentEvent.EventName</p>
+        <p id="eventDescription">Event Description: @Model.CurrentEvent.EventDescription</p>
+        <p id="eventStartDate">Start Date: @Model.CurrentEvent.StartDate</p>
+        <p id="eventEndDate">End Date: @Model.CurrentEvent.EndDate</p>
+        <p id="eventSearchKey">Event Key: @Model.CurrentEvent.SearchKey. Share this with your volunteers so they can sign up for your event.</p>
+    </div>
+
+    <form method="post">
+        <input type="submit" name="editButton" asp-page-handler="EditEvent" value="Edit Event">
+    </form>
+}
+else
+{
+    <div id="eventEditMenu">
+        <form method="post">
+            <label for="eventNameText">
+                Event Name:
+                <input type="text" name="eventNameText" value="@Model.CurrentEvent.EventName">
+            </label>
+
+            <lebel for="eventDescriptionText">
+                Event Description:
+                <input type="text" name="eventDescriptionText" value="@Model.CurrentEvent.EventDescription">
+            </lebel>
+
+            <label for="eventStartDate">
+                Start Date:
+                <input type="date" name="eventStartDate" value="@Model.CurrentEvent.StartDate">
+            </label>
+
+            <label for="eventEndDate">
+                End Date:
+                <input type="date" name="eventEndDate" value="@Model.CurrentEvent.EndDate">
+            </label>
+
+            <input type="submit" asp-page-handler="FinishEditing" value="Submit">
+        </form>
+    </div>
+}
+
+<!-- Task Info -->
+<div id="taskMenu">
+    @if (@Model.EventProjects.Count > 0)
+        {
+        
+        <ul id="currentProjects">
+            @for (int i = 0; i < @Model.EventProjects.Count; i++)
+            {
+                <!-- This a tag will go to the project editor once that exists -->
+                <li><a href="/ProjectEditor/@Model.CurrentEvent.EventGUID/@Model.EventProjects[i].ProjectGUID">@Model.EventProjects[i].ProjectName</a></li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>This event currently has no projects.</p>
+    }
+
+    <form method="post">
+        <input type="submit" value="Create new Project" asp-page-handler="NewProject" />
+    </form>
+</div>
+
+<!-- Volunteer Info -->
+<div id="volunteerMenu">
+    <p>Event Volunteers:</p>
+    @if (@Model.EventVolunteers.Count > 0)
+    {        
+        <ul id="volunteerList">
+            @for (int i = 0; i < @Model.EventVolunteers.Count; i++)
+            {
+                <li>@Model.EventVolunteers[i].Item2</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No volunteers currently assigned.</p>
+    }
+</div>

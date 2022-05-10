@@ -5,19 +5,42 @@
 
 <p>Hello there, @Model.LoggedInUser.FirstName @Model.LoggedInUser.LastName</p>
 
-@if (@Model.AssociatedEvents.Count != 0)
-{    
-    @for (int i = 0; i < @Model.AssociatedEvents.Count; i++) 
-    {
-        <a>@Model.AssociatedEvents[i].Item1</a>
+<div id="organizerMenu">
+    @if (@Model.OrganizerEvents.Count != 0)
+    {    
+        <p>The events you are organizing:</p>
+        @for (int i = 0; i < @Model.OrganizerEvents.Count; i++) 
+        {
+            <a href="/EventEditor/@Model.OrganizerEvents[i].Item2/@Model.LoggedInUser.UserGuid">@Model.OrganizerEvents[i].Item1</a>
+        }
     }
-}
-else 
-{
-    <p>You are not associated with any events yet.</p>
-}
+    else 
+    {
+        <p>You are not organizing any events yet.</p>
+    }
 
-<div id="addEventMenu">
     <a href="/EventCreator/@Model.LoggedInUser.UserGuid">Click here to create a new event.</a>
-    <a>Click here to volunteer for an existing event.</a>
+</div>
+
+<div id="volunteerMenu">
+    @if (@Model.VolunteerEvents.Count != 0)
+    {
+        @for (int i = 0; i < @Model.VolunteerEvents.Count; i++)
+        {
+            <a href="/VolunteerView/@Model.VolunteerEvents[i].Item2/@Model.LoggedInUser.UserGuid/">@Model.VolunteerEvents[i].Item1</a>
+        }
+    }
+    else
+    {
+        <p>You are not volunteering for any events yet.</p>
+    }
+
+    <p>Enter the event key provided by your event's organizer here to volunteer for an event.</p>
+    <form method="post">
+        <label for="searchKeyText">
+            Event Key:
+            <input type="text" name="searchKeyText"/>
+        </label>
+        <input type="submit" asp-page-handler="AddVolunteer" value="Volunteer for this Event" />
+    </form>
 </div>
