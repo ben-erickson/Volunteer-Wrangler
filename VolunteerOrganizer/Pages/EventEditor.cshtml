@@ -6,21 +6,21 @@
 <!-- Event Info -->
 @if (!@Model.Editing)
 {    
-    <div id="eventInfoDisplay">
-        <p id="eventName">Event Name: @Model.CurrentEvent.EventName</p>
-        <p id="eventDescription">Event Description: @Model.CurrentEvent.EventDescription</p>
-        <p id="eventStartDate">Start Date: @Model.CurrentEvent.StartDate</p>
-        <p id="eventEndDate">End Date: @Model.CurrentEvent.EndDate</p>
-        <p id="eventSearchKey">Event Key: @Model.CurrentEvent.SearchKey. Share this with your volunteers so they can sign up for your event.</p>
+    <div id="eventInfoDisplay" class="divStyle">
+        <p class="blockStyle" id="eventName">Event Name: @Model.CurrentEvent.EventName</p>
+        <p class="blockStyle" id="eventDescription">Event Description: @Model.CurrentEvent.EventDescription</p>
+        <p class="blockStyle" id="eventStartDate">Start Date: @Model.CurrentEvent.StartDate</p>
+        <p class="blockStyle" id="eventEndDate">End Date: @Model.CurrentEvent.EndDate</p>
+        <p class="blockStyle" id="eventSearchKey">Event Key: @Model.CurrentEvent.SearchKey. Share this with your volunteers so they can sign up for your event.</p>
     </div>
 
     <form method="post">
-        <input type="submit" name="editButton" asp-page-handler="EditEvent" value="Edit Event">
+        <input type="submit" name="editButton" asp-page-handler="EditEvent" value="Edit Event" class="submitStyle">
     </form>
 }
 else
 {
-    <div id="eventEditMenu">
+    <div id="eventEditMenu" class="divStyle">
         <form method="post">
             <label for="eventNameText">
                 Event Name:
@@ -42,13 +42,13 @@ else
                 <input type="date" name="eventEndDate" value="@Model.CurrentEvent.EndDate">
             </label>
 
-            <input type="submit" asp-page-handler="FinishEditing" value="Submit">
+            <input type="submit" asp-page-handler="FinishEditing" value="Submit" class="submitStyle">
         </form>
     </div>
 }
 
 <!-- Task Info -->
-<div id="taskMenu">
+<div id="taskMenu" class="divStyle">
     @if (@Model.EventProjects.Count > 0)
         {
         
@@ -66,12 +66,12 @@ else
     }
 
     <form method="post">
-        <input type="submit" value="Create new Project" asp-page-handler="NewProject" />
+        <input type="submit" value="Create new Project" asp-page-handler="NewProject" class="submitStyle" />
     </form>
 </div>
 
 <!-- Volunteer Info -->
-<div id="volunteerMenu">
+<div id="volunteerMenu" class="divStyle">
     <p>Event Volunteers:</p>
     @if (@Model.EventVolunteers.Count > 0)
     {        

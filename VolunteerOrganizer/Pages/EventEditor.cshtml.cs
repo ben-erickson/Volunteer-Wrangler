@@ -13,7 +13,7 @@ namespace VolunteerOrganizer.Pages
         public User LoggedInUser { get; set; }
         public List<Project> EventProjects { get; set; }
         // This list has the IndividualGUID and name of event's volunteers
-        public List<(Guid, string)> EventVolunteers { get; set; }
+        public List<(Guid, string, Guid)> EventVolunteers { get; set; }
 
         public EventEditorModel()
         {
@@ -21,7 +21,7 @@ namespace VolunteerOrganizer.Pages
             this.LoggedInUser = new User();
             this.Editing = false;
             this.EventProjects = new List<Project>();
-            this.EventVolunteers = new List<(Guid, string)>();
+            this.EventVolunteers = new List<(Guid, string, Guid)>();
         }
 
         public void OnGet(string eventId, string userId)
@@ -42,8 +42,23 @@ namespace VolunteerOrganizer.Pages
 
             string eventName = Request.Form["eventNameText"];
             string eventDescription = Request.Form["eventDescriptionText"];
-            DateTime startDate = DateTime.Parse(Request.Form["eventStartDate"]);
-            DateTime endDate = DateTime.Parse(Request.Form["eventEndDate"]);
+
+            DateTime.TryParse(Request.Form["eventStartDate"].ToString(), out DateTime startDate);
+            DateTime.TryParse(Request.Form["eventEndDate"].ToString(), out DateTime endDate);
+
+            //DateTime startDate = DateTime.Parse((string)Request.Form["eventStartDate"]);
+            //DateTime endDate = DateTime.Parse((string)Request.Form["eventEndDate"]);
+
+            // Check to make sure that the given DateTimes are within SQL's acceptable ranges
+            if (startDate < DateTime.Parse("01/01/1753") || startDate > DateTime.Parse("12/31/9999"))
+            {
+                startDate = DateTime.Parse("1/1/2000");
+            }
+
+            if (endDate < DateTime.Parse("01/01/1753") || endDate > DateTime.Parse("12/31/9999"))
+            {
+                endDate = DateTime.Parse("1/1/2000");
+            }
 
             // Update the Event in the database
             SqlCommand eventUpdateCommand = new SqlCommand(
@@ -91,7 +106,7 @@ namespace VolunteerOrganizer.Pages
 
             // Query the database to get all of the individuals volunteering for the current event
             SqlCommand volunteerQuery = new SqlCommand(
-                "select Individual.IndividualGUID, UserData.FirstName, UserData.LastName " +
+                "select Individual.IndividualGUID, UserData.FirstName, UserData.LastName, UserData.UserGUID " +
                 "from Individual " +
                 "inner join UserData on Individual.UserGUID = UserData.UserGUID " +
                 "where Individual.EventGUID = @EventGUID " +
@@ -104,8 +119,13 @@ namespace VolunteerOrganizer.Pages
             {
                 Guid volunteerGUID = (Guid)volunteerResults.Rows[i][0];
                 string volunteerName = $"{volunteerResults.Rows[i][1]} {volunteerResults.Rows[i][2]}";
+                Guid userGuid = (Guid)volunteerResults.Rows[i][3];
 
-                this.EventVolunteers.Add((volunteerGUID, volunteerName));
+                // If the volunteerGuid is a duplicate, don't insert it
+                if (!this.EventVolunteers.Any(x => x.Item3 == userGuid))
+                {
+                    this.EventVolunteers.Add((volunteerGUID, volunteerName, userGuid));
+                }
             }
         }
     }

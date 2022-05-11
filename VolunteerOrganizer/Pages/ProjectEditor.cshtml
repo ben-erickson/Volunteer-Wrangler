@@ -6,7 +6,7 @@
 <form method="post">
     <label for="returnButton">
         Return to Event Editor:
-        <input type="submit" name="returnButton" asp-page-handler="ReturnButton" />
+        <input type="submit" name="returnButton" class="submitStyle" asp-page-handler="ReturnButton" />
     </label>
 </form>
 
@@ -14,19 +14,19 @@
 @if (!@Model.ModifyingProject)
 {    
     <!-- Project Data Menu -->
-    <div id="projectDataMenu">
+    <div id="projectDataMenu" class="divStyle">
         <p>Project Name: @Model.EditingProject.ProjectName</p>
         <p>Project Description: @Model.EditingProject.ProjectDescription</p>
 
         <form method="post">
-            <input type="submit" asp-page-handler="EditProject">
+            <input type="submit" class="submitStyle" asp-page-handler="EditProject">
         </form>
     </div>
 }
 else
 {
     <!-- Project Editing Menu -->
-    <div id="projectEditingMenu">
+    <div id="projectEditingMenu" class="divStyle">
         <form method="post">
             <label for="projectNameText">
                 Project Name:
@@ -38,18 +38,18 @@ else
                 <input type="text" name="projectDescriptionText" value="@Model.EditingProject.ProjectDescription">
             </label>
 
-            <input type="submit" asp-page-handler="UpdateProject">
+            <input type="submit" class="submitStyle" asp-page-handler="UpdateProject">
         </form>
     </div>
 }
 
 <!-- Instance Editing Menu -->
-@if (@Model.EditingProject.ProjectInstances.Count == 0)
-{
-    <p>This project does not have any instances.</p>
-}
+<div id="instanceDataMenu" class="divStyle">
+    @if (@Model.EditingProject.ProjectInstances.Count == 0)
+    {
+        <p>This project does not have any instances.</p>
+    }
 
-<div id="instanceDataMenu">
     <ul>
         @for (int i = 0; i < @Model.EditingProject.ProjectInstances.Count; i++)
         {
@@ -65,14 +65,14 @@ else
     @if (!@Model.ModifyingProject)
     {        
         <form method="post">
-            <input type="submit" name="newInstanceButton" value="Add New Instance" asp-page-handler="NewInstance" />
+            <input type="submit" name="newInstanceButton" value="Add New Instance" class="submitStyle" asp-page-handler="NewInstance" />
         </form>
     }
 </div>
 
 <!-- Add Instance Menu -->
 
-<div id="addInstanceMenu">
+<div id="addInstanceMenu" class="divStyle">
     @if (@Model.AddingInstance)
     {
            <form method="post">
@@ -81,15 +81,15 @@ else
                    <input type="date" name="newInstanceTime">
                </label>
                
-            @for (int i = 0; i < @Model.AssociatedEvent.GetAssignedVolunteers().Count; i++)
-            {
-                <label for="volunteerCheckbox">
-                    @Model.AssociatedEvent.GetAssignedVolunteers()[i].Item1;
-                    <input type="checkbox" name="volunteerCheckbox" value="@Model.AssociatedEvent.GetAssignedVolunteers()[i].Item2">
-                </label>
-            }
+                @for (int i = 0; i < @Model.AssociatedEvent.GetAssignedVolunteers().Count; i++)
+                {
+                    <label for="volunteerCheckbox">
+                        @Model.AssociatedEvent.GetAssignedVolunteers()[i].Item1;
+                        <input type="checkbox" name="volunteerCheckbox" value="@Model.AssociatedEvent.GetAssignedVolunteers()[i].Item2">
+                    </label>
+                }
 
-            <input type="submit" asp-page-handler="AddInstance" value="Add Project Instance">
+                <input type="submit" asp-page-handler="AddInstance" class="submitStyle" value="Add Project Instance">
            </form>
     }
 </div>

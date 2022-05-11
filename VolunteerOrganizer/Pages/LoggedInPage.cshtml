@@ -2,37 +2,38 @@
 @model VolunteerOrganizer.Pages.LoggedInPageModel
 @{
 }
+<div class="divStyle">
+    <p>Hello there, @Model.LoggedInUser.FirstName @Model.LoggedInUser.LastName</p>
+</div>
 
-<p>Hello there, @Model.LoggedInUser.FirstName @Model.LoggedInUser.LastName</p>
-
-<div id="organizerMenu">
+<div id="organizerMenu" class="divStyle">
     @if (@Model.OrganizerEvents.Count != 0)
     {    
         <p>The events you are organizing:</p>
         @for (int i = 0; i < @Model.OrganizerEvents.Count; i++) 
         {
-            <a href="/EventEditor/@Model.OrganizerEvents[i].Item2/@Model.LoggedInUser.UserGuid">@Model.OrganizerEvents[i].Item1</a>
+            <a class="blockStyle" href="/EventEditor/@Model.OrganizerEvents[i].Item2/@Model.LoggedInUser.UserGuid">@Model.OrganizerEvents[i].Item1</a>
         }
     }
     else 
     {
-        <p>You are not organizing any events yet.</p>
+        <p class="blockStyle">You are not organizing any events yet.</p>
     }
 
     <a href="/EventCreator/@Model.LoggedInUser.UserGuid">Click here to create a new event.</a>
 </div>
 
-<div id="volunteerMenu">
+<div id="volunteerMenu" class="divStyle">
     @if (@Model.VolunteerEvents.Count != 0)
     {
         @for (int i = 0; i < @Model.VolunteerEvents.Count; i++)
         {
-            <a href="/VolunteerView/@Model.VolunteerEvents[i].Item2/@Model.LoggedInUser.UserGuid/">@Model.VolunteerEvents[i].Item1</a>
+            <a class="blockStyle" href="/VolunteerView/@Model.VolunteerEvents[i].Item2/@Model.LoggedInUser.UserGuid/">@Model.VolunteerEvents[i].Item1</a>
         }
     }
     else
     {
-        <p>You are not volunteering for any events yet.</p>
+        <p class="blockStyle">You are not volunteering for any events yet.</p>
     }
 
     <p>Enter the event key provided by your event's organizer here to volunteer for an event.</p>
@@ -41,6 +42,6 @@
             Event Key:
             <input type="text" name="searchKeyText"/>
         </label>
-        <input type="submit" asp-page-handler="AddVolunteer" value="Volunteer for this Event" />
+        <input type="submit" asp-page-handler="AddVolunteer" class="submitStyle" value="Volunteer for this Event" />
     </form>
 </div>

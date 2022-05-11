@@ -60,8 +60,8 @@ namespace VolunteerOrganizer.Pages
 
                 SQLWorker.ExecuteNonQuery(projectInsert);
 
-                // Now that we have inserted, we are no longer making a new project
-                this.NewProject = false;
+                // Reload the project editor with the new project loaded
+                Response.Redirect($"/ProjectEditor/{eventGuid}/{projectGuid}/");
             }
             // If it is not a new project, update
             else

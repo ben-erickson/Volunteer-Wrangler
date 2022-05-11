@@ -3,7 +3,7 @@
 @{
 }
 
-<div id="registrationMenu">
+<div id="registrationMenu" class="divStyle">
     <h4>User Registration</h4>
     <form id="registrationForm" method="post">
         @if (@Model.Error)
@@ -34,6 +34,6 @@
             Phone Number:
             <input type="text" name="userPhoneNumberText" />
         </label>
-        <input type="submit" />
+        <input type="submit" class="submitStyle" />
     </form>
 </div>

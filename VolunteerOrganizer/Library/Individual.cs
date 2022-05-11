@@ -51,7 +51,7 @@ namespace VolunteerOrganizer.Library
         public Individual(Guid individualGUID)
         {
             SqlCommand command = new SqlCommand("select top 1 IndividualGUID, EventGUID, UserGUID, UserType from Individual where IndividualGUID = @IndividualGUID");
-            command.Parameters.AddWithValue("@VolunteerGUID", individualGUID);
+            command.Parameters.AddWithValue("@IndividualGUID", individualGUID);
 
             DataTable queryResult = SQLWorker.ExecuteQuery(command);
 

@@ -37,7 +37,9 @@ namespace VolunteerOrganizer.Pages
             SqlCommand instanceCommand = new SqlCommand(
                 "select VolunteerAssignment.InstanceGUID " +
                 "from VolunteerAssignment " +
-                "inner join Individual on VolunteerAssignment.IndividualGUID = Individual.IndividualGUID " +
+                "inner join TaskInstance on VolunteerAssignment.InstanceGUID = TaskInstance.InstanceGUID " +
+                "inner join Task on TaskInstance.TaskGUID = Task.TaskGUID " +
+                "inner join Individual on Task.EventGUID = Individual.EventGUID " +
                 "where Individual.UserGUID = @UserGUID");
             instanceCommand.Parameters.AddWithValue("@UserGUID", individualId);
 
